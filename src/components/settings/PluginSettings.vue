@@ -48,8 +48,14 @@ const settings = reactive({
 
 const saveSettings = async () => {
   try {
-    ElMessage.success('插件设置保存成功')
-    // TODO: 调用后端API保存设置
+    const response = await settingsAPI.update({
+      plugin: settings
+    })
+    if (response.success) {
+      ElMessage.success('插件设置保存成功')
+    } else {
+      ElMessage.error('保存失败: ' + response.message)
+    }
   } catch (error) {
     ElMessage.error('保存失败: ' + error.message)
   }

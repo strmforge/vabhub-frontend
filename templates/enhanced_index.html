@@ -993,8 +993,16 @@
                 </div>
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">代理地址:</label>
-                    <input type="text" id="tmdbProxySettings" placeholder="例如: http://127.0.0.1:7890" style="width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
+                    <input type="text" id="tmdbProxySettings" placeholder="例如: 127.0.0.1:7890" style="width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
                     <small style="color: #666; display: block; margin-top: 5px;">用于访问 TMDB API（可选）</small>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">代理类型:</label>
+                    <select id="tmdbProxyTypeSettings" style="width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
+                        <option value="http">HTTP/HTTPS</option>
+                        <option value="socks5">SOCKS5</option>
+                    </select>
+                    <small style="color: #666; display: block; margin-top: 5px;">选择代理协议类型</small>
                 </div>
             </div>
 
@@ -2842,6 +2850,7 @@
                 if (data.success && data.settings) {
                     document.getElementById('tmdbApiKeySettings').value = data.settings.tmdb_api_key || '';
                     document.getElementById('tmdbProxySettings').value = data.settings.tmdb_proxy || '';
+                    document.getElementById('tmdbProxyTypeSettings').value = data.settings.tmdb_proxy_type || 'http';
                     document.getElementById('tmdbProxyEnabledSettings').checked = !!data.settings.tmdb_proxy;
                     document.getElementById('doubanCookieSettings').value = data.settings.douban_cookie || '';
                     document.getElementById('updateProxySettings').value = data.settings.update_proxy || '';
@@ -2882,7 +2891,7 @@
             const settings = {
                 tmdb_api_key: document.getElementById('tmdbApiKeySettings').value.trim(),
                 tmdb_proxy: document.getElementById('tmdbProxyEnabledSettings').checked ? document.getElementById('tmdbProxySettings').value.trim() : '',
-                tmdb_proxy_type: 'http',
+                tmdb_proxy_type: document.getElementById('tmdbProxyTypeSettings').value,
                 douban_cookie: document.getElementById('doubanCookieSettings').value.trim(),
                 update_proxy: document.getElementById('updateProxySettings').value.trim(),
                 update_proxy_enabled: document.getElementById('updateProxyEnabledSettings').checked,

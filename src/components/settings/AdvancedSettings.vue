@@ -90,8 +90,12 @@ const restartDialogVisible = ref(false)
 
 const saveSettings = async () => {
   try {
-    ElMessage.success('高级设置保存成功')
-    // TODO: 调用后端API保存设置
+    const response = await settingsAPI.update(settings)
+    if (response.success) {
+      ElMessage.success('高级设置保存成功')
+    } else {
+      ElMessage.error('保存失败: ' + response.message)
+    }
   } catch (error) {
     ElMessage.error('保存失败: ' + error.message)
   }
@@ -116,9 +120,13 @@ const showRestartDialog = () => {
 
 const restartService = async () => {
   try {
-    ElMessage.success('服务重启中...')
-    restartDialogVisible.value = false
-    // TODO: 调用后端API重启服务
+    const response = await settingsAPI.restart()
+    if (response.success) {
+      ElMessage.success('服务重启中...')
+      restartDialogVisible.value = false
+    } else {
+      ElMessage.error('重启失败: ' + response.message)
+    }
   } catch (error) {
     ElMessage.error('重启失败: ' + error.message)
   }

@@ -40,6 +40,7 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { authAPI } from '@/api'
 
 const router = useRouter()
 const loginForm = ref()
@@ -66,11 +67,19 @@ const handleLogin = async () => {
     await loginForm.value.validate()
     loading.value = true
     
-    // TODO: 调用后端登录API
-    // 模拟登录成功
-    localStorage.setItem('token', 'demo-token')
-    ElMessage.success('登录成功')
-    router.push('/')
+    // 调用后端登录API
+    const response = await authAPI.login({
+      username: form.username,
+      password: form.password
+    })
+    
+    if (response.success) {
+      localStorage.setItem('token', response.data.token)
+      ElMessage.success('登录成功')
+      router.push('/')
+    } else {
+      ElMessage.error('登录失败: ' + response.message)
+    }
   } catch (error) {
     ElMessage.error('登录失败: ' + error.message)
   } finally {
