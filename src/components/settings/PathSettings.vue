@@ -97,9 +97,23 @@ const editPath = (path) => {
   dialogVisible.value = true
 }
 
-const deletePath = (path) => {
-  ElMessage.warning(`删除路径: ${path.name}`)
-  // TODO: 实现删除逻辑
+const deletePath = async (path) => {
+  try {
+    // 调用后端API删除路径
+    const response = await settingsAPI.update({
+      paths: paths.value.filter(p => p.id !== path.id)
+    })
+    
+    if (response.success) {
+      ElMessage.success(`路径删除成功: ${path.name}`)
+      // 从本地列表中移除
+      paths.value = paths.value.filter(p => p.id !== path.id)
+    } else {
+      ElMessage.error('删除失败: ' + response.message)
+    }
+  } catch (error) {
+    ElMessage.error('删除失败: ' + error.message)
+  }
 }
 
 const savePath = () => {

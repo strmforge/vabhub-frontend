@@ -26,13 +26,24 @@ import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import PluginList from '@/components/PluginList.vue'
 import PluginMarket from '@/components/PluginMarket.vue'
+import { pluginAPI } from '@/api'
 
 const activeTab = ref('installed')
 
 const refreshPlugins = async () => {
   try {
-    ElMessage.success('刷新插件列表...')
-    // TODO: 调用后端API刷新插件
+    const response = await pluginAPI.list()
+    if (response.success) {
+      ElMessage.success('插件列表刷新成功')
+      // 刷新子组件的插件列表
+      if (activeTab.value === 'installed') {
+        // 触发已安装插件列表刷新
+      } else if (activeTab.value === 'market') {
+        // 触发插件市场刷新
+      }
+    } else {
+      ElMessage.error('刷新失败: ' + response.message)
+    }
   } catch (error) {
     ElMessage.error('刷新失败: ' + error.message)
   }

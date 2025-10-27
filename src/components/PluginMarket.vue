@@ -88,8 +88,14 @@ const filteredPlugins = computed(() => {
 
 const refreshMarket = async () => {
   try {
-    ElMessage.success('刷新插件市场...')
-    // TODO: 调用后端API获取插件市场数据
+    const response = await pluginAPI.list('available')
+    if (response.success) {
+      ElMessage.success('插件市场刷新成功')
+      // 更新插件市场数据
+      plugins.value = response.data.plugins || []
+    } else {
+      ElMessage.error('刷新失败: ' + response.message)
+    }
   } catch (error) {
     ElMessage.error('刷新失败: ' + error.message)
   }
@@ -97,8 +103,14 @@ const refreshMarket = async () => {
 
 const installPlugin = async (plugin) => {
   try {
-    ElMessage.success(`安装插件: ${plugin.name}`)
-    // TODO: 调用后端API安装插件
+    const response = await pluginAPI.install(plugin.id)
+    if (response.success) {
+      ElMessage.success(`安装插件成功: ${plugin.name}`)
+      // 刷新插件市场列表
+      refreshMarket()
+    } else {
+      ElMessage.error('安装失败: ' + response.message)
+    }
   } catch (error) {
     ElMessage.error('安装失败: ' + error.message)
   }

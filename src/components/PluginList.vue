@@ -57,6 +57,7 @@
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { pluginAPI } from '@/api'
+import { pluginAPI } from '@/api'
 
 const props = defineProps({
   status: {
@@ -98,8 +99,14 @@ const getStatusType = (status) => {
 
 const installPlugin = async (plugin) => {
   try {
-    ElMessage.success(`安装插件: ${plugin.name}`)
-    // TODO: 调用后端API安装插件
+    const response = await pluginAPI.install(plugin.id)
+    if (response.success) {
+      ElMessage.success(`安装插件成功: ${plugin.name}`)
+      // 刷新插件列表
+      loadPlugins()
+    } else {
+      ElMessage.error('安装失败: ' + response.message)
+    }
   } catch (error) {
     ElMessage.error('安装失败: ' + error.message)
   }
@@ -107,8 +114,14 @@ const installPlugin = async (plugin) => {
 
 const uninstallPlugin = async (plugin) => {
   try {
-    ElMessage.warning(`卸载插件: ${plugin.name}`)
-    // TODO: 调用后端API卸载插件
+    const response = await pluginAPI.uninstall(plugin.id)
+    if (response.success) {
+      ElMessage.success(`卸载插件成功: ${plugin.name}`)
+      // 刷新插件列表
+      loadPlugins()
+    } else {
+      ElMessage.error('卸载失败: ' + response.message)
+    }
   } catch (error) {
     ElMessage.error('卸载失败: ' + error.message)
   }
