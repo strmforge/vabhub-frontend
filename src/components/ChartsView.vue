@@ -160,8 +160,6 @@ export default {
         trakt: 'Trakt',
         bangumi: 'Bangumi'
       },
-        trakt: 'Trakt'
-      },
       genreMapping: {
         music: ['流行', '摇滚', '电子', '民谣', '说唱', '古典', '爵士'],
         movie: ['动作', '喜剧', '剧情', '科幻', '恐怖', '爱情', '动画', '悬疑'],

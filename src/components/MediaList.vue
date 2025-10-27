@@ -73,7 +73,7 @@ import { mediaAPI } from '@/api'
 import MediaDetail from './MediaDetail.vue'
 
 const props = defineProps({
-  type: {
+  mediaType: {
     type: String,
     required: true
   }
@@ -95,7 +95,7 @@ const isEditMode = ref(false)
 const fetchMedia = async () => {
   try {
     const response = await mediaAPI.list({
-      type: props.type,
+      type: props.mediaType,
       search: searchText.value,
       page: currentPage.value,
       page_size: pageSize.value
