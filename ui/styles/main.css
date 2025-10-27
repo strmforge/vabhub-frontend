@@ -152,7 +152,7 @@ body {
     color: var(--text-primary);
 }
 
-.logo svg {
+.logo img {
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
 }

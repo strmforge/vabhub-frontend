@@ -42,42 +42,84 @@ api.interceptors.response.use(
   }
 )
 
-// API方法
+// API方法定义
+export const mediaAPI = {
+  // 扫描媒体
+  scan: (data) => api.post('/media/scan', data),
+  
+  // 获取媒体列表
+  list: (params) => api.get('/media', { params }),
+  
+  // 获取媒体详情
+  get: (id) => api.get(`/media/${id}`),
+  
+  // 更新媒体信息
+  update: (id, data) => api.put(`/media/${id}`, data),
+  
+  // 删除媒体
+  delete: (id) => api.delete(`/media/${id}`)
+}
+
+export const pluginAPI = {
+  // 获取插件列表
+  list: (status) => api.get('/plugins', { params: { status } }),
+  
+  // 安装插件
+  install: (id) => api.post(`/plugins/${id}/install`),
+  
+  // 卸载插件
+  uninstall: (id) => api.post(`/plugins/${id}/uninstall`),
+  
+  // 启用插件
+  enable: (id) => api.post(`/plugins/${id}/enable`),
+  
+  // 禁用插件
+  disable: (id) => api.post(`/plugins/${id}/disable`)
+}
+
+export const settingsAPI = {
+  // 获取设置
+  get: () => api.get('/settings'),
+  
+  // 更新设置
+  update: (data) => api.post('/settings', data),
+  
+  // 重启系统
+  restart: () => api.post('/system/restart')
+}
+
+export const authAPI = {
+  // 登录
+  login: (data) => api.post('/auth/login', data),
+  
+  // 登出
+  logout: () => api.post('/auth/logout'),
+  
+  // 获取用户信息
+  getUserInfo: () => api.get('/auth/user')
+}
+
+export const taskAPI = {
+  // 获取任务状态
+  getStatus: (id) => api.get(`/tasks/${id}`)
+}
+
+export const systemAPI = {
+  // 健康检查
+  health: () => api.get('/health'),
+  
+  // 获取配置
+  config: () => api.get('/config'),
+  
+  // 更新配置
+  updateConfig: (data) => api.post('/config/update', data)
+}
+
 export default {
-  // 认证相关
-  auth: {
-    login: (credentials) => api.post('/api/auth/login', credentials),
-    register: (userData) => api.post('/api/auth/register', userData),
-    getMe: () => api.get('/api/auth/me'),
-    logout: () => api.post('/api/auth/logout')
-  },
-  
-  // 媒体相关
-  media: {
-    list: (params) => api.get('/api/media', { params }),
-    get: (id) => api.get(`/api/media/${id}`),
-    create: (data) => api.post('/api/media', data),
-    update: (id, data) => api.put(`/api/media/${id}`, data),
-    delete: (id) => api.delete(`/api/media/${id}`),
-    scan: () => api.post('/api/media/scan'),
-    stats: () => api.get('/api/media/stats')
-  },
-  
-  // 插件相关
-  plugins: {
-    list: () => api.get('/api/plugins'),
-    install: (pluginId) => api.post(`/api/plugins/${pluginId}/install`),
-    uninstall: (pluginId) => api.post(`/api/plugins/${pluginId}/uninstall`),
-    config: (pluginId) => api.get(`/api/plugins/${pluginId}/config`),
-    updateConfig: (pluginId, config) => api.put(`/api/plugins/${pluginId}/config`, config)
-  },
-  
-  // 系统相关
-  system: {
-    stats: () => api.get('/api/system/stats'),
-    settings: () => api.get('/api/system/settings'),
-    updateSettings: (settings) => api.put('/api/system/settings', settings),
-    backup: () => api.post('/api/system/backup'),
-    logs: () => api.get('/api/system/logs')
-  }
+  media: mediaAPI,
+  plugin: pluginAPI,
+  settings: settingsAPI,
+  auth: authAPI,
+  task: taskAPI,
+  system: systemAPI
 }
