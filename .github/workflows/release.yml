@@ -1,0 +1,48 @@
+name: Release VabHub-Frontend
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        npm ci
+
+    - name: Run tests
+      run: |
+        npm run test:unit
+
+    - name: Build frontend
+      run: |
+        npm run build
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/**
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      if: startsWith(github.ref, 'refs/tags/v')
+      run: |
+        docker build -t vabhub/vabhub-frontend:${{ github.ref_name }} .
+        docker push vabhub/vabhub-frontend:${{ github.ref_name }}

@@ -115,11 +115,56 @@ export const systemAPI = {
   updateConfig: (data) => api.post('/config/update', data)
 }
 
+// 事件系统API
+export const eventAPI = {
+  // 获取事件列表
+  list: (params) => api.get('/events', { params }),
+  
+  // 触发事件
+  trigger: (eventType, data) => api.post('/events/trigger', { event_type: eventType, data }),
+  
+  // 获取事件统计
+  stats: () => api.get('/events/stats')
+}
+
+// 调度器API
+export const schedulerAPI = {
+  // 获取任务列表
+  list: () => api.get('/scheduler/jobs'),
+  
+  // 添加任务
+  add: (jobData) => api.post('/scheduler/jobs', jobData),
+  
+  // 暂停任务
+  pause: (id) => api.post(`/scheduler/jobs/${id}/pause`),
+  
+  // 恢复任务
+  resume: (id) => api.post(`/scheduler/jobs/${id}/resume`),
+  
+  // 删除任务
+  remove: (id) => api.delete(`/scheduler/jobs/${id}`),
+  
+  // 立即执行任务
+  run: (id) => api.post(`/scheduler/jobs/${id}/run`)
+}
+
+// 业务链API
+export const chainAPI = {
+  // 执行业务链
+  execute: (chainId, data) => api.post(`/chains/${chainId}/execute`, data),
+  
+  // 获取执行历史
+  history: (chainId) => api.get(`/chains/${chainId}/history`)
+}
+
 export default {
   media: mediaAPI,
   plugin: pluginAPI,
   settings: settingsAPI,
   auth: authAPI,
   task: taskAPI,
-  system: systemAPI
+  system: systemAPI,
+  event: eventAPI,
+  scheduler: schedulerAPI,
+  chain: chainAPI
 }
