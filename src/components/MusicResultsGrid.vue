@@ -160,8 +160,8 @@ export default {
     // 源文本映射
     const sourceTexts = {
       local: '本地',
-      qq_music: 'QQ音乐',
-      netease: '网易云音乐',
+      netflix_top10: 'Netflix Top 10',
+      imdb_datasets: 'IMDb Datasets',
       spotify: 'Spotify',
       apple_music: 'Apple Music'
     }

@@ -30,6 +30,24 @@ const routes = [
     name: 'Login',
     component: () => import('@/views/Login.vue'),
     meta: { title: '登录' }
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('@/views/SearchPage.vue'),
+    meta: { title: '搜索' }
+  },
+  {
+    path: '/search-test',
+    name: 'SearchTest',
+    component: () => import('@/views/SearchTest.vue'),
+    meta: { title: '搜索功能测试' }
+  },
+  {
+    path: '/discover',
+    name: 'Discover',
+    component: () => import('@/views/DiscoverPage.vue'),
+    meta: { title: '发现推荐' }
   }
 ]
 

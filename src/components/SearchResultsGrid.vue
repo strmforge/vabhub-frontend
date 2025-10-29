@@ -145,8 +145,8 @@ export default {
       local: '本地',
       tmdb: 'TMDB',
       douban: '豆瓣',
-      qq_music: 'QQ音乐',
-      netease: '网易云',
+      netflix_top10: 'Netflix Top 10',
+      imdb_datasets: 'IMDb Datasets',
       spotify: 'Spotify',
       apple_music: 'Apple Music'
     }
