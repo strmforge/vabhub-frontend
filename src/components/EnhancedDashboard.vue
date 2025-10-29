@@ -158,7 +158,6 @@ import {
   Moon,
   Sunny,
   Download,
-  Search,
   Plus,
   Setting
 } from '@element-plus/icons-vue'
@@ -275,7 +274,8 @@ const toggleRefreshMode = () => {
   addNotification({
     title: '刷新模式',
     message: `已切换到${refreshMode.value === 'auto' ? '自动' : '手动'}刷新模式`,
-    type: 'success'
+    type: 'success',
+    duration: 3000
   })
 }
 
@@ -307,13 +307,15 @@ const exportDashboard = async () => {
     addNotification({
       title: '导出成功',
       message: '仪表盘配置已导出',
-      type: 'success'
+      type: 'success',
+      duration: 3000
     })
   } catch (error) {
     addNotification({
       title: '导出失败',
       message: '导出过程中出现错误',
-      type: 'error'
+      type: 'error',
+      duration: 3000
     })
   }
 }
@@ -364,7 +366,8 @@ const removeWidget = async (widgetId: string) => {
     addNotification({
       title: '组件移除',
       message: '组件已成功移除',
-      type: 'success'
+      type: 'success',
+      duration: 3000
     })
   } catch (error) {
     // 用户取消操作
@@ -396,7 +399,8 @@ const addWidget = (widget: Widget) => {
   addNotification({
     title: '组件添加',
     message: `${widget.title} 已添加到仪表盘`,
-    type: 'success'
+    type: 'success',
+    duration: 3000
   })
 }
 
@@ -423,7 +427,8 @@ const resetLayout = async () => {
     addNotification({
       title: '布局重置',
       message: '仪表盘布局已重置为默认设置',
-      type: 'success'
+      type: 'success',
+      duration: 3000
     })
   } catch (error) {
     // 用户取消操作
