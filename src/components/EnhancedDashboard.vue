@@ -325,7 +325,7 @@ const onLayoutUpdated = (newLayout: LayoutItem[]) => {
   saveLayout()
 }
 
-const onItemResized = (i: string | number, newH: number, newW: number, height: number, width: number) => {
+const onItemResized = (i: string | number, newH: number, newW: number, _height: number, _width: number) => {
   console.log(`组件 ${i} 大小调整: ${newW}x${newH}`)
 }
 
