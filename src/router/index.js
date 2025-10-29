@@ -48,6 +48,32 @@ const routes = [
     name: 'Discover',
     component: () => import('@/views/DiscoverPage.vue'),
     meta: { title: '发现推荐' }
+  },
+  
+  // 现代化UI路由
+  {
+    path: '/modern',
+    name: 'ModernHome',
+    component: () => import('@/views/ModernHome.vue'),
+    meta: { title: 'VabHub - 现代化界面' }
+  },
+  {
+    path: '/modern/discover',
+    name: 'ModernDiscover',
+    component: () => import('@/views/ModernDiscover.vue'),
+    meta: { title: '发现 - VabHub' }
+  },
+  {
+    path: '/modern/library',
+    name: 'ModernLibrary',
+    component: () => import('@/views/ModernLibrary.vue'),
+    meta: { title: '媒体库 - VabHub' }
+  },
+  {
+    path: '/modern/settings',
+    name: 'ModernSettings',
+    component: () => import('@/views/ModernSettings.vue'),
+    meta: { title: '设置 - VabHub' }
   }
 ]
 

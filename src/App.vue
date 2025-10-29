@@ -1,50 +1,26 @@
 <template>
   <div id="app">
-    <!-- 导航栏 -->
-    <nav class="navbar">
-      <div class="nav-container">
-        <div class="nav-brand">
-          <router-link to="/" class="brand-link">
-            <span class="brand-icon">🎬</span>
-            <span class="brand-text">VabHub</span>
-          </router-link>
-        </div>
-        
-        <div class="nav-menu">
-          <router-link to="/" class="nav-link">首页</router-link>
-          <router-link to="/discover" class="nav-link">发现</router-link>
-          <router-link to="/search" class="nav-link">搜索</router-link>
-          <router-link to="/library" class="nav-link">媒体库</router-link>
-          <router-link to="/settings" class="nav-link">设置</router-link>
-        </div>
-        
-        <div class="nav-actions">
-          <button class="nav-btn" @click="toggleTheme">
-            {{ isDarkMode ? '🌙' : '☀️' }}
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- 主要内容区域 -->
-    <main class="main-content">
+    <!-- 响应式布局 -->
+    <ResponsiveLayout>
       <router-view />
-    </main>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-      <div class="footer-content">
-        <p>&copy; 2024 VabHub. 基于MoviePilot架构优化的媒体管理系统</p>
-      </div>
-    </footer>
+    </ResponsiveLayout>
+    
+    <!-- 移动端底部导航 -->
+    <MobileBottomNav />
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue'
+import ResponsiveLayout from './components/ResponsiveLayout.vue'
+import MobileBottomNav from './components/MobileBottomNav.vue'
 
 export default {
   name: 'App',
+  components: {
+    ResponsiveLayout,
+    MobileBottomNav
+  },
   setup() {
     const isDarkMode = ref(false)
 
@@ -121,136 +97,33 @@ body {
   flex-direction: column;
 }
 
-/* 导航栏样式 */
-.navbar {
-  background: var(--bg-primary);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: var(--shadow);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-}
-
-.nav-brand {
-  display: flex;
-  align-items: center;
-}
-
-.brand-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: var(--text-primary);
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-
-.brand-icon {
-  font-size: 2rem;
-  margin-right: 10px;
-}
-
-.brand-text {
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 30px;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: var(--text-secondary);
-  font-weight: 500;
-  padding: 8px 16px;
-  border-radius: var(--radius);
-  transition: all 0.3s;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  color: var(--primary-color);
-  background: var(--bg-secondary);
-}
-
-.nav-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.nav-btn {
-  background: none;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: all 0.3s;
-}
-
-.nav-btn:hover {
-  background: var(--bg-secondary);
-  border-color: var(--primary-color);
-}
-
-/* 主要内容区域 */
-.main-content {
-  flex: 1;
-  padding: 0;
-}
-
-/* 页脚样式 */
-.footer {
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
-  padding: 20px 0;
-  margin-top: auto;
-}
-
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  text-align: center;
-  color: var(--text-secondary);
-}
-
-/* 响应式设计 */
+/* 响应式设计增强 */
 @media (max-width: 768px) {
-  .nav-container {
-    padding: 0 15px;
-    height: 56px;
+  html {
+    font-size: 14px;
   }
   
-  .brand-text {
-    display: none;
+  body {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
-  
-  .nav-menu {
-    gap: 15px;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+  .btn, .nav-btn, .bottom-nav-item {
+    min-height: 44px;
+    min-width: 44px;
   }
   
   .nav-link {
-    padding: 6px 12px;
-    font-size: 0.9rem;
-  }
-  
-  .main-content {
-    padding: 0 10px;
+    padding: 12px 16px;
   }
 }
 
@@ -342,7 +215,7 @@ body {
   margin: 20px 0;
 }
 
-/* 工具类 */
+/* 响应式工具类 */
 .text-center { text-align: center; }
 .text-left { text-align: left; }
 .text-right { text-align: right; }
@@ -376,11 +249,102 @@ body {
 .grid-cols-1 { grid-template-columns: 1fr; }
 .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
 
+/* 响应式网格系统 */
 @media (max-width: 768px) {
   .grid-cols-2,
-  .grid-cols-3 {
+  .grid-cols-3,
+  .grid-cols-4 {
     grid-template-columns: 1fr;
+  }
+  
+  .grid {
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 移动端优化类 */
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+  
+  .desktop-only {
+    display: none;
+  }
+}
+
+/* 安全区域适配 */
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(12px, env(safe-area-inset-top));
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  
+  .safe-area-left {
+    padding-left: max(12px, env(safe-area-inset-left));
+  }
+  
+  .safe-area-right {
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+}
+
+/* 滚动条优化 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* 选择文本优化 */
+::selection {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* 焦点样式 */
+*:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* 减少动画（用户偏好） */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 </style>

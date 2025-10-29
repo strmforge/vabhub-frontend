@@ -12,7 +12,7 @@
       </div>
 
       <!-- 统计卡片 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
         <div class="card">
           <div class="flex items-center">
             <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900 mr-4">
@@ -22,7 +22,7 @@
             </div>
             <div>
               <p class="text-sm font-medium text-gray-600 dark:text-gray-400">电影</p>
-              <p class="text-2xl font-bold text-gray-900 dark:text-white">
+              <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {{ mediaStats.movies }}
               </p>
             </div>
@@ -38,7 +38,7 @@
             </div>
             <div>
               <p class="text-sm font-medium text-gray-600 dark:text-gray-400">电视剧</p>
-              <p class="text-2xl font-bold text-gray-900 dark:text-white">
+              <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {{ mediaStats.tvShows }}
               </p>
             </div>
@@ -54,7 +54,7 @@
             </div>
             <div>
               <p class="text-sm font-medium text-gray-600 dark:text-gray-400">音乐</p>
-              <p class="text-2xl font-bold text-gray-900 dark:text-white">
+              <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {{ mediaStats.music }}
               </p>
             </div>
@@ -70,7 +70,7 @@
             </div>
             <div>
               <p class="text-sm font-medium text-gray-600 dark:text-gray-400">总计</p>
-              <p class="text-2xl font-bold text-gray-900 dark:text-white">
+              <p class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {{ mediaStats.total }}
               </p>
             </div>
@@ -79,7 +79,7 @@
       </div>
 
       <!-- 快速操作 -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         <div class="card">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             快速操作
