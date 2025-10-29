@@ -149,7 +149,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { GridLayout, GridItem } from 'vue-grid-layout'
+import { GridLayout, GridItem } from 'vue3-grid-layout-next'
 import DashboardWidget from './DashboardWidget.vue'
 
 // 图标导入

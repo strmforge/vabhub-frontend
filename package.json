@@ -25,7 +25,7 @@
     "element-plus": "^2.3.8",
     "@element-plus/icons-vue": "^2.1.0",
     "vue-i18n": "^9.4.1",
-    "vue-grid-layout": "^3.0.0"
+    "vue3-grid-layout-next": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20.5.0",
