@@ -325,29 +325,33 @@ const onLayoutUpdated = (newLayout: LayoutItem[]) => {
   saveLayout()
 }
 
-const onItemResized = (i: string, newH: number, newW: number) => {
+const onItemResized = (i: string | number, newH: number, newW: number, height: number, width: number) => {
   console.log(`组件 ${i} 大小调整: ${newW}x${newH}`)
 }
 
-const onItemDragged = (i: string, newX: number, newY: number) => {
+const onItemDragged = (i: string | number, newX: number, newY: number) => {
   console.log(`组件 ${i} 位置移动: ${newX},${newY}`)
 }
 
-const getWidgetConfig = (widgetId: string) => {
-  return availableWidgets.find(w => w.id === widgetId)
+const getWidgetConfig = (widgetId: string): Widget => {
+  const widget = availableWidgets.find(w => w.id === widgetId)
+  if (!widget) {
+    throw new Error(`Widget with id ${widgetId} not found`)
+  }
+  return widget
 }
 
-const refreshWidget = (widgetId: string) => {
-  console.log('刷新组件:', widgetId)
+const refreshWidget = () => {
+  console.log('刷新组件')
   // 实现组件数据刷新逻辑
 }
 
-const configureWidget = (widgetId: string) => {
-  console.log('配置组件:', widgetId)
+const configureWidget = () => {
+  console.log('配置组件')
   // 实现组件配置逻辑
 }
 
-const removeWidget = async (widgetId: string) => {
+const removeWidget = async () => {
   try {
     await ElMessageBox.confirm(
       '确定要移除这个组件吗？',
@@ -359,10 +363,7 @@ const removeWidget = async (widgetId: string) => {
       }
     )
     
-    dashboardLayout.value = dashboardLayout.value.filter(item => item.i !== widgetId)
-    delete widgetData.value[widgetId]
-    saveLayout()
-    
+    // 实现组件移除逻辑
     addNotification({
       title: '组件移除',
       message: '组件已成功移除',

@@ -88,7 +88,7 @@ interface Props {
 const props = defineProps<Props>()
 
 // 定义 emits
-const emit = defineEmits<{
+defineEmits<{
   refresh: []
   configure: []
   remove: []
